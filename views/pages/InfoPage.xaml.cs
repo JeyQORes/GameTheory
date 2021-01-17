@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +23,8 @@ namespace Practice.views.pages
         public enum TypeInfo
         {
             Import,
-            Help
+            Help,
+            Readme
         }
         //инфо по справке
         public InfoPage(TypeInfo type)
@@ -29,8 +32,8 @@ namespace Practice.views.pages
             InitializeComponent();
             if(type == TypeInfo.Import)
             {
-                string[] Titles = { "Файл TXT", "Файл CSV", "Файл XML", "Файл JSON" };
-                for (int i = 0; i < 4; i++)
+                string[] Titles = { "Файл TXT", "Файл CSV", "Файл XML", "Файл JSON", "Файл XLSX" };
+                for (int i = 0; i < Titles.Length; i++)
                 {
                     Button btn = new Button
                     {
@@ -49,10 +52,10 @@ namespace Practice.views.pages
 
                 }
             }
-            else
+            if(type == TypeInfo.Help)
             {
                 string[] Titles = { "информация по методу", "получение ответа", "Подробное решение"};
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < Titles.Length; i++)
                 {
                     Button btn = new Button
                     {
@@ -68,6 +71,15 @@ namespace Practice.views.pages
                         InfoRichTextBox.Document = GenerateDocuments(TypeInfo.Help, Convert.ToInt32(b.Tag));
                     }));
                     buttons.Children.Add(btn);
+                }
+            }
+            if(type == TypeInfo.Readme)
+            {
+                var path = Environment.CurrentDirectory + @"\README.MD";
+                using (var reader = new StreamReader(path))
+                {
+                    string file = reader.ReadToEnd();
+                    InfoRichTextBox.AppendText(file);
                 }
             }
         }
@@ -267,6 +279,61 @@ namespace Practice.views.pages
                                 doc.Blocks.Add(p);
 
                                 p = new Paragraph(new Run(@"Для экспорта нажмите кнопку ""Экспорт"" и сохраните файл в формате .json"));
+                                p.FontSize = 14;
+                                p.TextAlignment = TextAlignment.Left;
+                                doc.Blocks.Add(p);
+                            }
+                            break;
+                        case 4:
+                            {
+                                p = new Paragraph(new Run("Файл .xlsx"));
+                                p.FontSize = 22;
+                                p.TextAlignment = TextAlignment.Center;
+                                doc.Blocks.Add(p);
+
+                                p = new Paragraph(new Run("Импорт"));
+                                p.FontSize = 20;
+                                p.TextAlignment = TextAlignment.Center;
+                                doc.Blocks.Add(p);
+
+                                p = new Paragraph(new Run("формат импорта:\nМатрица чисел, в excel, одно число на одну клетку\n" +
+                                    "Пример импорта:"));
+                                p.FontSize = 14;
+                                p.TextAlignment = TextAlignment.Left;
+                                doc.Blocks.Add(p);
+
+                                Table t = new Table();
+                                t.FontSize = 12;
+                                t.TextAlignment = TextAlignment.Left;
+                                for (int i = 0; i < 4; i++)
+                                {
+                                    TableColumn tc = new TableColumn();
+                                    tc.Width = new GridLength(10);
+                                    t.Columns.Add(tc);
+                                }
+                                TableRowGroup group = new TableRowGroup();
+                                int number = 1;
+                                for (int i = 0; i < 3; i++)
+                                {
+                                    TableRow tr = new TableRow();
+
+                                    for (int j = 0; j < 3; j++)
+                                    {
+                                        TableCell cell = new TableCell(new Paragraph(new Run($"{number}")));
+                                        number++;
+                                        tr.Cells.Add(cell);
+                                    }
+                                    group.Rows.Add(tr);
+                                }
+                                t.RowGroups.Add(group);
+                                doc.Blocks.Add(t);
+
+                                p = new Paragraph(new Run("Экспорт"));
+                                p.FontSize = 20;
+                                p.TextAlignment = TextAlignment.Center;
+                                doc.Blocks.Add(p);
+
+                                p = new Paragraph(new Run(@"Для экспорта нажмите кнопку ""Экспорт"" и сохраните файл в формате .xlsx"));
                                 p.FontSize = 14;
                                 p.TextAlignment = TextAlignment.Left;
                                 doc.Blocks.Add(p);

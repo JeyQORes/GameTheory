@@ -199,6 +199,9 @@ namespace Practice.views.pages
                     case "json":
                         file = new FileJSON();
                         break;
+                    case "xlsx":
+                        file = new FileXLSX();
+                        break;
                     default:
                         MessageBox.Show("Выбран некоректный формат файла");
                         break;

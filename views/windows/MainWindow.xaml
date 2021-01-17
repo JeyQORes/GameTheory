@@ -109,6 +109,7 @@
                               Click="HelpMenuItem_Click"
                               Template="{StaticResource VsMenuSub}"/>
                     <MenuItem Header="Readme"
+                              Click="ReadmeMenuItem_Click"
                               x:Name="ReadmeMenuItem"
                               Template="{StaticResource VsMenuSub}"/>
                 </MenuItem>

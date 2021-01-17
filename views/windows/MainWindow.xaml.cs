@@ -59,8 +59,12 @@ namespace Practice
                         case "json":
                             file = new FileJSON();
                             break;
+                        case "xlsx":
+                            file = new FileXLSX();
+                            break;
                         default:
                             MessageBox.Show("Выбран некоректный формат файла");
+                            return;
                             break;
                     }
                     var result = file.Import(path);
@@ -94,6 +98,11 @@ namespace Practice
         private void HelpMenuItem_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new InfoPage(InfoPage.TypeInfo.Help));
+        }
+
+        private void ReadmeMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new InfoPage(InfoPage.TypeInfo.Readme));
         }
     }
 }
