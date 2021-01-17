@@ -89,15 +89,22 @@ namespace Practice.views.pages
                 GenerateTable(w, h);
             }
             else
-                MessageBox.Show("Введите корректное число");
+            {
+                if (tb.Text == "")
+                {
+
+                }
+                else
+                    MessageBox.Show("Введите корректное число");
+            }    
         }
         private void ActionButton_Click(object sender, RoutedEventArgs e)
         {
             //получаем изначальную матрицу
             var view = (DataView)StartMatrixDataGrid.ItemsSource;
             var dt = view.Table;
-            int h = Convert.ToInt32(heightTextBox.Text);
-            int w = Convert.ToInt32(widthTextBox.Text);
+            Int32.TryParse(heightTextBox.Text, out int h);
+            Int32.TryParse(widthTextBox.Text, out int w);
             int[,] m = new int[h, w];
             for (int i = 0; i < h; i++)
             {
@@ -106,7 +113,7 @@ namespace Practice.views.pages
                     m[i, j] = Convert.ToInt32(dt.Rows[i].ItemArray.GetValue(j));
                 }
             }
-            if ((h <=0) || (w <= 0))
+            if ((h <=0) || (w <= 0) || (heightTextBox.Text == "") || (widthTextBox.Text == ""))
             {
                 MessageBox.Show("Введена некорректная матрица");
             }

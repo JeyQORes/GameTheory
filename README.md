@@ -1,15 +1,15 @@
 # Project Title
 
-Данное ПО предназначенно для решения математических игр с природой методом максимума
+This software is designed to solve mathematical games with nature using the maximum method
 
 ## Getting Started
 
-Для запуска копии проекта необходимо запустить создать копию репозитория https://github.com/Artem/GameTheory
+To run a copy of the project, you need to run create a copy of the repository https://github.com/Artem/GameTheory
 
 ### Prerequisites
 
-Необходимо следовать инструкциям установочного пакета GameTheorySetup.exe
+You must follow the instructions of the installation package GameTheorySetup.exe
 
 ## Authors
 
-Студент 1271 группы Манукян Артём https://github.com/Artem/
+Student 1271 group Manukyan Artyom https://github.com/Artem/
